@@ -1,0 +1,18 @@
+{
+  "name": "maarston-vpn",
+  "version": "1.0.0",
+  "description": "MaarstOn VPN - High-Speed, Free & Private Global VPN Web Portal & Client",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "vpn",
+    "proxy",
+    "wireguard",
+    "openvpn",
+    "maarston-vpn"
+  ],
+  "author": "MaarstOn VPN Team",
+  "license": "MIT"
+}
