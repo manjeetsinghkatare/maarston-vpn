@@ -36,7 +36,7 @@
         <a href="#features" class="nav-link">Features</a>
 
         <!-- Dark / Light Mode Switch -->
-        <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark / Light Theme">
+        <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Dark / Light Theme">
           <i class="fa-solid fa-moon" id="themeIcon"></i>
         </button>
 
@@ -306,28 +306,5 @@
   </footer>
 
   <script src="app.js"></script>
-  <script>
-    // Theme Switcher Fallback
-    function toggleTheme() {
-      var current = document.documentElement.getAttribute('data-theme') || 'dark';
-      var next = current === 'dark' ? 'light' : 'dark';
-      setTheme(next);
-    }
-    function setTheme(t) {
-      document.documentElement.setAttribute('data-theme', t);
-      if (document.body) document.body.setAttribute('data-theme', t);
-      try { localStorage.setItem('maarston-theme', t); } catch(e) {}
-      var icon = document.getElementById('themeIcon');
-      if (icon) {
-        icon.className = t === 'light' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-      }
-    }
-    (function() {
-      try {
-        var saved = localStorage.getItem('maarston-theme') || 'dark';
-        setTheme(saved);
-      } catch(e) {}
-    })();
-  </script>
 </body>
 </html>

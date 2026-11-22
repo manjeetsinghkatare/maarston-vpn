@@ -1,12 +1,18 @@
 // MaarstOn VPN - Web Portal Controller
 // Dark / Light Theme Engine & Smart Scroll Navigation
 
-// Run immediately and also on DOMContentLoaded
-(function () {
+// Ensure DOM is ready before attaching listeners
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
+
+function initApp() {
   initTheme();
   initSmartHeader();
   initSmoothScroll();
-})();
+}
 
 // 1. Dark / Light Theme Engine
 function initTheme() {
@@ -19,8 +25,12 @@ function initTheme() {
   setTheme(savedTheme);
 
   const themeToggleBtn = document.getElementById('themeToggleBtn');
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', toggleTheme);
+  if (themeToggleBtn && !themeToggleBtn.dataset.themeBound) {
+    themeToggleBtn.dataset.themeBound = 'true';
+    themeToggleBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      toggleTheme();
+    });
   }
 }
 
@@ -29,6 +39,9 @@ function toggleTheme() {
   const next = current === 'dark' ? 'light' : 'dark';
   setTheme(next);
 }
+
+// Expose globally
+window.toggleTheme = toggleTheme;
 
 function setTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
