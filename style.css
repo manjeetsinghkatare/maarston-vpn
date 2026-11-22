@@ -4,7 +4,7 @@
    Deep Blacks, Pure Whites, Titanium Slate Grays with Soft Radial Glows
    ========================================================================== */
 
-:root, [data-theme="dark"] {
+:root, [data-theme="dark"], html[data-theme="dark"], body[data-theme="dark"] {
   --bg-primary: #09090b;
   --bg-secondary: #121215;
   --bg-card: #18181b;
@@ -32,32 +32,32 @@
   --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
 }
 
-[data-theme="light"] {
-  --bg-primary: #f4f4f5;
-  --bg-secondary: #ffffff;
-  --bg-card: #ffffff;
-  --bg-card-hover: #fafafa;
-  --bg-card-active: #f0f0f2;
-  --border-color: rgba(0, 0, 0, 0.08);
-  --border-hover: rgba(0, 0, 0, 0.2);
-  --border-active: rgba(0, 0, 0, 0.4);
+[data-theme="light"], html[data-theme="light"], body[data-theme="light"] {
+  --bg-primary: #f4f4f5 !important;
+  --bg-secondary: #ffffff !important;
+  --bg-card: #ffffff !important;
+  --bg-card-hover: #fafafa !important;
+  --bg-card-active: #f0f0f2 !important;
+  --border-color: rgba(0, 0, 0, 0.08) !important;
+  --border-hover: rgba(0, 0, 0, 0.2) !important;
+  --border-active: rgba(0, 0, 0, 0.4) !important;
 
-  --text-main: #09090b;
-  --text-muted: #52525b;
-  --text-dim: #71717a;
+  --text-main: #09090b !important;
+  --text-muted: #52525b !important;
+  --text-dim: #71717a !important;
 
-  --accent-glow: rgba(0, 0, 0, 0.06);
-  --accent-button-bg: #09090b;
-  --accent-button-text: #ffffff;
-  --accent-gradient: linear-gradient(135deg, #09090b 0%, #52525b 100%);
-  --accent-success: #059669;
-  --accent-gold: #d97706;
+  --accent-glow: rgba(0, 0, 0, 0.06) !important;
+  --accent-button-bg: #09090b !important;
+  --accent-button-text: #ffffff !important;
+  --accent-gradient: linear-gradient(135deg, #09090b 0%, #52525b 100%) !important;
+  --accent-success: #059669 !important;
+  --accent-gold: #d97706 !important;
 
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
   --radius-full: 9999px;
-  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
 }
 
 * {
@@ -68,7 +68,6 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
   width: 100%;
 }
 
@@ -79,6 +78,7 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   width: 100%;
+  padding-top: 68px;
   transition: background-color 0.25s ease, color 0.25s ease;
   min-height: 100vh;
 }
@@ -112,18 +112,36 @@ body {
   left: -150px;
 }
 
-/* Navigation Bar */
+/* Navigation Bar - Fixed with Smart Hide on Scroll Down & Show on Scroll Up */
 .navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border-color);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  z-index: 100;
+  z-index: 1000;
   height: 68px;
   display: flex;
   align-items: center;
+  transform: translateY(0);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+.navbar.nav-hidden {
+  transform: translateY(-100%);
+}
+
+.navbar.nav-scrolled {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
+}
+
+[data-theme="light"] .navbar.nav-scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .nav-container {
@@ -203,12 +221,18 @@ body {
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s;
+  padding: 0;
+  outline: none;
 }
 
 .theme-toggle-btn:hover {
   color: var(--text-main);
   border-color: var(--border-hover);
   transform: scale(1.05);
+}
+
+.theme-toggle-btn i {
+  pointer-events: none;
 }
 
 /* Buttons */
@@ -748,6 +772,9 @@ body {
   }
   .navbar {
     height: 56px;
+  }
+  body {
+    padding-top: 56px;
   }
   .nav-link {
     display: none;
